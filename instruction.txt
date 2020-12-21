@@ -1,0 +1,49 @@
+-- in case of errors in the task don't hesitate to tell us about this immediately --  
+
+1) check the structure of files in /js, /mvc and /php folders
+2) open /directory.php with php server
+3) check the html code of this page, the way sidebar and main view are included
+4) go into mvc/directory and check the files there.
+   In our project we have a strict component formation.
+   The standard component consists of three formal types of files which are:
+      - Controller (js code, a js class with the same name as a component name in CamelCase)
+      - Module (php code and api for the component)
+      - View (html code with php insertions from Module)
+5) as now you know the basic file structure, check the code of all those elements.
+   When the page is loaded, the basic template gets the 
+      - /php/index.php file (has the PDO and other helper functions inclusions)
+      - /mvc/directory/index.php file (the main file of the component used for inclusion of all component files)
+   /mvc/directory/index.php includes:
+      - /mvc/directory/view/directory-sidebar.php
+      - /mvc/directory/controller/Directory.js 
+      - /mvc/directory/controller/Directory.js (puts it into the <script> tag by means of include_js() function from /php/HelperFunctions.php)
+6) Your goal is to:
+   a) create a t_patient, t_hospital and t_city tables in the database with the following rows:
+      t_patient:
+        idPatient (int 11)
+        patName (varchar 255)
+        patLastname (varchar 255)
+        patPhone (varchar 20)
+        patGender (char 1) - m / f
+        patBirthDate (date)
+        patEmail (varchar 255)
+        fkCity (int 11)
+      t_hospital:
+        idHospital (int 11)
+        hosName (varchar 255)
+        hosPhone (varchar 255)
+        hosUrgentPhone (varchar 255)
+        hosFax (varchar 255)
+        hosEmail (varchar 255)
+        fkCity (int 11)
+      t_city:
+        idCity (int 11)
+        citName (varchar 255)
+  b) create 3 fake data instances for each table
+  c) take the value from the input in sidebar 
+    and form the request in /mvc/directory/controller/Directory.js to 
+    /mvc/directory/module/api-directory.php in getPatients() and getHospitals() methods
+    with input value. 
+    The "input" event listener should trigger the action after 500 milliseconds.
+    The action should be triggered on document ready
+  d) work on functions called from /mvc/directory/module/api-directory.php to give an html response
